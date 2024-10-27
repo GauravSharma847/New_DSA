@@ -1,6 +1,9 @@
 package Sorting;
 
 public class MergeSort {
+    public static int[] partitionArray(int aar1) {
+
+    }
     public static void main(String[] args) {
         int arr1[] = {2,3,4,5,6,7,8};
         int arr2[] = {12,14,15,16,18,20,30,44};
