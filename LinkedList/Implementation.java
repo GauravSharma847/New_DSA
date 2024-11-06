@@ -22,7 +22,19 @@ public class Implementation {
             size = 0;
         }
 
-
+        public void addFirst(int val) {
+            Node temp = new Node(val);
+            if(size == 0) {
+                // head = temp;
+                // temp.next = null;
+                // or
+                tail = temp;
+            } else {
+                temp.next = head;
+                head = temp;
+            }
+            size++;
+        }
         public void addLast(int val){
             Node temp = new Node(val);
             // temp.data = val;  // if u not using constructor than declare values here
@@ -36,6 +48,24 @@ public class Implementation {
             size++;
         }
 
+        public void addAtPos(int pos,int val) {
+			Node temp = new Node(val);
+			Node prev = head;
+			if(size == 0 && pos > 1) {
+				System.out.println("Please provide pos = 1 as your list is empty");
+			} else if(pos < 0 || pos >= size) {
+                System.out.println("Invalid arguments");
+            } else {
+				for(int i = 0 ; i < pos - 2 && prev != null ; i++) {
+					prev = prev.next;
+				}
+				temp.next = prev.next;
+				prev.next = temp;
+				
+				size++;
+			}
+		}
+
         public void removeFirst() {
             if(size == 0) {
                 System.out.println("List is empty");
@@ -48,35 +78,73 @@ public class Implementation {
             }
         }
 
-
-        public int getFirst() {
-            if(size == 0) {
-                System.out.println("List is empty");
-                return -1;
-            } else {
-                return head.data;
-            }
-        }
-
-        public int getLast() {
+        public void removeLast() {
             Node temp = head;
             if(size == 0) {
                 System.out.println("List is empty");
-                return -1;
+            } else if(size == 1) {
+                head =tail = null;
             } else {
-                // temp = temp.next;
-                // if(temp.next == null) {
-                //     // temp = temp.next;
-                //     return temp.data;
-                // }
-                return tail.data;
+                for(int i = 0 ; i < size - 2 ; i++) {
+                    temp = temp.next;
+                }
+                tail = temp;
+                temp.next = null;
+                size--;
             }
         }
 
-        public int getAt(int indx) {
-            return -1;
-        }
-
+        public void removeAtpos(int pos) {
+            if(pos == 0) {
+                removeFirst();
+            } else if(pos == size - 1) {
+                removeLast();
+            } else if(pos < 0 || pos >= size) {
+                System.out.println("Invalid Arguments");
+            } else {
+                Node temp = head;
+                for(int i = 0 ; i < pos - 2 && temp != null ; i++){
+                    temp = temp.next;
+                }
+                temp.next = temp.next.next;
+                size--;
+            }
+            
+		}
+		
+		public int getFirst() {
+			if(size == 0) {
+				System.out.println("List is empty");
+				return -1;
+			} else {
+				return head.data;
+			}
+		}
+		
+		public int getLast() {
+			if(size == 0) {
+				System.out.println("List is empty");
+				return -1;
+			} else {
+				return tail.data;
+			}
+		}
+		
+		public int getAtIndex(int pos) {
+			Node prev = head;
+			if(size == 0) {
+				System.out.println("List is Empty");
+				return -1;
+			} else if(pos < 0 || pos >= size) {
+                System.out.println("Invalid arguments");
+                return -1;
+            } else {
+				for(int i = 0 ; i < pos - 1 && prev != null ; i++) {
+					prev = prev.next;
+				}
+				return prev.data;
+			}
+		}
 
         public int size() {
             return size;
@@ -112,11 +180,11 @@ public class Implementation {
 
         System.out.println("---------------------------------");
         
-        list.removeFirst();
-        list.display();
-        System.out.println("Size -> "+list.size());
+        // list.removeFirst();
+        // list.display();
+        // System.out.println("Size -> "+list.size());
         
-        System.out.println("---------------------------------");
+        // System.out.println("---------------------------------");
         
         int first = list.getFirst();
         System.out.println("First Node is -> "+first);
@@ -125,5 +193,26 @@ public class Implementation {
 
         int last = list.getLast();
         System.out.println("Last -> "+last);
+
+        System.out.println("---------------------------------");
+
+        // list.addFirst(10);
+        // list.display();
+        // System.out.println("Size -> "+list.size());
+
+        System.out.println("---------------------------------");
+
+        list.removeAtpos(2);
+        list.display();
+        System.out.println("Size -> "+list.size());
+
+        System.out.println("---------------------------------");
+
+        // list.removeLast();
+        // list.display();
+        // System.out.println("Size -> "+list.size());
+
+        // System.out.println("---------------------------------");
+
     }
 }
